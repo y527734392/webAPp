@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" />
+    <title>404</title>
+    
+</head>
+<body>
+404无法找到
+</body>
+
+    <div class="wrap">
+
+        <div class="page page_1">
+            <div class="page1_canvas">
+                <canvas id="guaarea"> 浏览器不支持。 </canvas>
+            </div>
+            <div class="page1_mask"></div>
+            <p class="page1_txt"><img src="images/page1_e2.png" width="100%"> </p>
+        </div>
+        <div class="page page_2">
+            <div class="page2_txt">
+                <p></p>
+                <p></p>
+                <p></p>
+            </div>
+        </div>
+        <div class="page page_3">
+            <div class="list_content">
+                <p>这是第三页浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。浏览器不支持。</p>
+            </div>
+        </div>
+        <div class="page page_4">
+            <div class="list_content">
+                <p>这是第四页</p>
+            </div>
+        </div>
+    </div>
+<script>
+    function calCoor(poElem) {
+        if (poElem.tagName == 'BODY') {
+            return {top:0, left:0};
+        }
+
+        var tdTop = poElem.offsetTop;
+        var tdLeft = poElem.offsetLeft;
+
+        var toParentCoor = calCoor(poElem.parentNode);
+        return {top:tdTop + toParentCoor.top, left:tdLeft + toParentCoor.left};
+    }
+
+
+    (function(bodyStyle) {
+		var oYW = document.documentElement.clientWidth;
+        bodyStyle.mozUserSelect = 'none';
+        bodyStyle.webkitUserSelect = 'none';
+
+        var img = new Image();
+        var canvas = document.querySelector('#guaarea');
+        canvas.style.backgroundColor='transparent';
+        canvas.style.position = 'absolute';
+        img.addEventListener('load', function(e) {
+            var ctx;
+//            var w = img.width,
+//                h = img.height;
+            var w = document.body.clientWidth,
+                h = document.body.clientHeight;
+            var offsetX=null;
+            var offsetY = calCoor(canvas).top;
+			if(oYW>640){
+				offsetX = 	(oYW-640)/2
+			}else{
+				offsetX = calCoor(canvas).left;	
+			}
+            var mousedown = false;
+            var mdLastX = 0;
+            var mdLastY = 0;
+
+            function layer(ctx) {
+               // ctx.fillStyle = 'red';
+                var image = new Image();
+                image.src = "images/page1_bj1.jpg";
+                ctx.fillStyle = "#EEEEFF";
+                image.onload = function () {
+                    ctx.drawImage(image,0,0,w,h);
+                }
+                ctx.fillRect(0, 0, w, h);
+            }
+
+            function eventDown(e){
+                e.preventDefault();
+                mousedown=true;
+
+                if(e.changedTouches){
+                    e=e.changedTouches[e.changedTouches.length-1];
+                }
+                mdLastX = (e.clientX + document.body.scrollLeft || e.pageX) - offsetX || 0;
+                mdLastY = (e.clientY + document.body.scrollTop || e.pageY) - offsetY || 0;
+            }
+
+            function eventUp(e){
+                //alert('aaa');
+                // e.preventDefault();
+                //mousedown=false;
+                e.preventDefault();
+                mousedown = false;
+                var data=ctx.getImageData(0,0,w,h).data;
+                for(var i=0,j=0;i<data.length;i+=4){
+                    if(data[i] && data[i+1] && data[i+2] && data[i+3]){
+                        j++;
+                    }
+                }
+                if(j<=w*h*0.85){
+                    // alert('ok,挂完了');
+                    canvas.style.display = 'none';
+                   var oS = document.createElement('script'),
+                       oBody = document.getElementsByTagName('body')[0];
+                    oS.innerHTML = 'var myslider=new iSlider({wrap:".wrap", item:".page",index:0,lastLocate:false, onslide:function (index) { if(index == 0){  }},});'
+                    oBody.appendChild(oS);
+                }
+            }
+
+            function eventMove(e){
+                e.preventDefault();
+                if(mousedown) {
+                    if(e.changedTouches){
+                        e=e.changedTouches[e.changedTouches.length-1];
+                    }
+                    var x = (e.clientX + document.body.scrollLeft || e.pageX) - offsetX || 0;
+                    var y = (e.clientY + document.body.scrollTop || e.pageY) - offsetY || 0;
+
+
+                    with(ctx) {
+                        globalCompositeOperation = 'destination-out';
+                        lineWidth = 20;
+                        lineCap="round";
+                        beginPath();
+                        moveTo(mdLastX, mdLastY);
+                        lineTo(x, y);
+                        stroke();
+                        canvas.style.display = 'none';
+                        canvas.style.display = 'inherit';
+                        fill();
+                    }
+
+                    mdLastX = x;
+                    mdLastY = y;
+                }
+            }
+
+            canvas.width = canvas.parentNode.offsetWidth;
+            canvas.height = canvas.parentNode.offsetHeight;
+
+            //alert(canvas.width);
+            ctx=canvas.getContext('2d');
+            ctx.fillStyle='transparent';
+            ctx.fillRect(0, 0, w, h);
+            layer(ctx);
+
+
+            canvas.addEventListener('touchstart', eventDown);
+            canvas.addEventListener('touchend', eventUp);
+            canvas.addEventListener('touchmove', eventMove);
+            canvas.addEventListener('mousedown', eventDown);
+            canvas.addEventListener('mouseup', eventUp);
+            canvas.addEventListener('mousemove', eventMove);
+        });
+        img.src = 'images/page1_bj.jpg';
+
+    })(document.body.style);
+</script>
+</body>
+</html>
