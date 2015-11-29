@@ -1,0 +1,31 @@
+@charset "utf-8";
+/*箭头  音乐 css*/
+@-webkit-keyframes an{
+	0%{-webkit-transform:translateY(0px);opacity:1;}
+	100%{-webkit-transform:translateY(-20px);opacity:0;}
+}
+@-webkit-keyframes zz{
+	0%{-webkit-transform:rotate(0deg)}
+	100%{-webkit-transform:rotate(360deg)}
+}
+.jt{width:30px;height:22px;position:absolute;left:0;right:0;bottom:0px;margin:0 auto;z-index: 40;-webkit-animation:'an' 1s ease-out infinite}
+.music{width:30px;display:block;position: absolute;right:5px;top:5px;-webkit-animation:'zz' 2s linear infinite;z-index:99}
+/* page css*/
+.page { width:100%; height:100%; overflow:hidden; position:relative;}
+
+/* 第一页*/
+.page_1 div { position:absolute; width:100%;}
+/* 第二页*/
+.mask_btn { position:absolute; top:50%; left:0; width:30px; height:30px; background:url(../images/btn_touch.png) center/contain no-repeat; z-index:14;}
+.mask_img { position:absolute; top:0; left:0; z-index:1; width:100%; height:100%; background:center/cover no-repeat;}
+.touch-4 {-webkit-mask-image: url(../images/Touch4.png)!important;  -webkit-mask-size: 400% 500%!important; }
+.touch-1 {-webkit-mask-image: url(../images/Touch1.png)!important;   -webkit-mask-size: 400% 300%!important;}
+.touch-2 {-webkit-mask-image: url(../images/Touch2.png)!important;   -webkit-mask-size: 400% 300%!important;}
+.touch-3 {-webkit-mask-image: url(../images/Touch3.png)!important;  -webkit-mask-size: 400% 300%!important;}
+
+/* 第三页*/
+.page_3>div { position:absolute; width:100%;}
+
+/* 第四页*/
+.page_5>div { position:absolute; width:100%;}
+.page_6>div { position:absolute; width:100%;}

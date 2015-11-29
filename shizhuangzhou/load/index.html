@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<section id="pagebody">
+<div id="main">
+	<img src="images/loading.gif">
+</div>
+<script>
+	var oMain = document.getElementById('main');
+	oMain.style.height = oMain.style.lineHeight = document.documentElement.clientHeight +'px';
+	setTimeout(function(){
+		window.location = '../index/index.html'	
+	},3000);
+</script>
+</section>
+
+
+</body>
+</html>
