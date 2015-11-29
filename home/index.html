@@ -1,0 +1,203 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1'>
+<title>我的个人站</title>
+<link href="images/favicon.ico" mce_href="favicon.ico" rel="bookmark" type="image/x-icon" /> 
+<link href="images/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
+<link href="images/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<link href="css/home_style.css" rel="stylesheet" >
+<link href="css/animated.css" rel="stylesheet" >
+<style>
+
+</style>
+<script src="js/jquery-1.11.1.js"></script>
+<script src="js/mousewheel.js"></script>
+<script src="js/jQ_easing.js"></script>
+<script src="js/circliful.js"></script>
+<script src="js/wow.js"></script>
+<script src="js/TweenLite.js"></script>
+<script src="js/complete.js"></script>
+</head>
+
+<body id="body" class="home_bg">
+<div id="menu">
+	<a  id="b-nav" class="ok"  href="javascript:;">
+		<div class="menu_one">
+			<div  class="barre barre1"></div>
+			<div  class="barre barre2"></div>
+		</div>
+	</a>
+</div>
+<div id="nav">
+	<div id="la_video" style="width:100%; min-width:960px;">
+        <video  autoplay="autoplay"  preload="auto"  loop="true">
+            <source  src="video/a.mp4"  type="video/mp4">
+            <source  src="video/a.webm" type="video/webm">
+        </video>
+    </div>
+    <div class="mask"></div>
+    <div  class="le-menu"> 
+        <a  href="JavaScript:;" class="logo-menu">
+            <img  src="images/mywebs.png" class="nav_txt"><img src="images/myweb_bg.svg" class="nav_txtBg">
+            <strong>Welcome to my website</strong>
+        </a>
+        <div  class="liens"> 
+            <a href="javascript:;" title="个人简介" class="about" >About</a> &nbsp; &nbsp; &nbsp; &nbsp; <a href="javascript:;" title="工作项目" class="work" >Work</a> &nbsp; &nbsp; &nbsp; &nbsp; <a href="javascript:;" title="联系我" class="contact">Contact</a><br>
+      </div>
+    </div>
+    <div  id="bas-nav">
+        <a  href="javascript:;">
+            <div class="info">t : 1 3 1 6 1 3 2 6 1 2 2</div>
+            <div class="icon"></div>
+        </a>
+        <a href="javascript:;">
+            <div class="icon"></div>
+            <div class="info">muyiweb@163.com</div>
+        </a>
+    </div>
+</div>
+<div id="home_main">
+	<style>body { overflow:hidden !important;}</style>
+	<div class="mywebs"><img src="images/mywebs.png"></div>
+	<div  id="souris"  class="souris"  style="opacity: 1; display: none;"><div></div></div>
+	<a class="bloc-hp ref0 g hidden" href="javascript:;"></a> 
+	<a class="bloc-hp ref0 d hidden" href="javascript:;"></a> 
+	<a class="bloc-hp ref1 g hidden" href="javascript:;"></a> 
+	<a class="bloc-hp ref1 d hidden" href="javascript:;"></a> 
+	<a class="bloc-hp ref2 g hidden" href="javascript:;"></a> 
+	<a class="bloc-hp ref2 d hidden" href="javascript:;"></a> 
+	<a class="bloc-hp ref3 g hidden" href="javascript:;"></a> 
+	<a class="bloc-hp ref3 d hidden" href="javascript:;"></a>
+	<div class="btn"><a class="active" index=0 href="javascript:;">·</a><a index=1 href="javascript:;">·</a><a index=2 href="javascript:;">·</a><a index=3 href="javascript:;">·</a><div class="btn_zz"></div></div>
+	<script>
+    	//-----------home js 开始
+		//执行获取比例
+		mm();
+		//执行小屏幕比例
+		smallScreen();
+		//home_cont  a标签的宽高
+		var aA = $('.bloc-hp'),
+				windowH = document.documentElement.clientHeight,
+				oAh = windowH*0.75,
+				oAw = oAh*(240/385);	
+		var n=0,
+			speed=2000,
+			timer = null;
+			
+		
+		//滚轮滚动时
+		$(window).mousewheel(function(event, delta) {
+				if(delta == '-1'){
+				//下滑时
+				
+				if(!$('.ref'+n+'.g').is(':animated')){
+					//btn active css
+					
+					//当前图片 上下隐藏
+					$('.ref'+n+'.g').animate({top:'200%'},{duration: speed,easing:'easeInOutExpo'});
+					$('.ref'+n+'.d').animate({top:'-200%'},{duration: speed,easing:'easeInOutExpo'});
+					//除当前图片的其他图片top值 上下隐藏
+					for(var m=1;m<3;m++){
+						$('.ref'+(n+m)+'.g').css({top:'-200%'});
+						$('.ref'+(n+m)+'.d').css({top:'200%'});
+					}
+					//下一张图片
+					n++;
+					$('.btn a:eq('+n+')').addClass('active').siblings().removeClass("active");
+					$('.ref'+n).removeClass('hidden');
+					if(n == 4){
+						n=0;
+						$('.btn a:eq('+n+')').addClass('active').siblings().removeClass("active");
+						$('.ref'+n).removeClass('hidden');
+						$('.ref'+n+'.g').css({top:'-200%'});
+						$('.ref'+n+'.d').css({top:'200%'});	
+					}
+					//下一张图片 居中显示
+					$('.ref'+n+'.g').animate({top:'50%'},{duration: speed,easing:'easeInOutExpo',complete:function (){
+						if(n == 0){
+							$('.ref3').addClass('hidden');	
+						}else{
+							$('.ref'+(n-1)).addClass('hidden');	
+						}
+					}});
+					$('.ref'+n+'.d').animate({top:'50%'},{duration: speed,easing:'easeInOutExpo'});
+					//console.log(n);
+				}
+			}else{
+				if(!$('.ref'+n+'.g').is(':animated')){
+					//当前图片 上下隐藏
+					$('.ref'+n+'.g').animate({top:'-200%'},{duration: speed,easing:'easeInOutExpo'});
+					$('.ref'+n+'.d').animate({top:'200%'},{duration: speed,easing:'easeInOutExpo'});
+					//当前图片的上一张的top值 上下隐藏
+					for(var m=1;m<3;m++){
+						$('.ref'+(n-m)+'.g').css({top:'200%'});
+						$('.ref'+(n-m)+'.d').css({top:'-200%'});
+					}
+					//下一张图片
+					n--;
+					$('.btn a:eq('+n+')').addClass('active').siblings().removeClass("active");
+					$('.ref'+n).removeClass('hidden');
+					if(n == -1){
+						n=3;
+						$('.btn a:eq('+n+')').addClass('active').siblings().removeClass("active");
+						$('.ref'+n).removeClass('hidden');
+						$('.ref'+n+'.g').css({top:'200%'});
+						$('.ref'+n+'.d').css({top:'-200%'});	
+					}
+					//下一张图片 居中显示
+					$('.ref'+n+'.g').animate({top:'50%'},{duration: speed,easing:'easeInOutExpo',complete:function (){
+						if(n == 3){
+							$('.ref0').addClass('hidden');	
+						}else{
+							$('.ref'+(n+1)).addClass('hidden');	
+						}
+					}});
+					$('.ref'+n+'.d').animate({top:'50%'},{duration: speed,easing:'easeInOutExpo'});			
+				}
+			}
+		});
+		
+		//点击图片下方圆点btn时		
+		$('.btn a').each(function(i){
+			$(this).bind("click",function(){	
+				//speed = 800;
+				$('.btn_zz').css({display:'block'});		
+				if(!$('.ref'+i+'.g').is(':animated')){
+					$(this).addClass('active').siblings().removeClass("active");
+					//当前图片 上下隐藏
+					$('.ref'+n+'.g').stop().animate({top:'200%'},{duration: speed,easing:'easeInOutExpo',complete:function(){
+						$('.btn_zz').css({display:'none'});
+						$('.ref'+n).addClass('hidden');
+						n=i;
+											
+					}});
+					$('.ref'+n+'.d').stop().animate({top:'-200%'},{duration: speed,easing:'easeInOutExpo'});
+					for(var m=0;m<4;m++){
+						//$('.ref'+m).addClass('hidden');
+						if(n!=m){
+							$('.ref'+m).addClass('hidden');
+							$('.ref'+m+'.g').css({top:'-200%'});
+							$('.ref'+m+'.d').css({top:'200%'});
+						}
+					}
+					$('.ref'+i).removeClass('hidden');
+					$('.ref'+i+'.g').stop().animate({top:'50%'},{duration: speed,easing:'easeInOutExpo'});
+					$('.ref'+i+'.d').stop().animate({top:'50%'},{duration: speed,easing:'easeInOutExpo'});
+				}
+			});
+		});
+		
+		//首页比例
+		window.onresize = function(){
+			mm();
+			//屏幕过小 js
+			smallScreen();
+			
+		};
+		//home 结束 ----------------------
+    </script>
+</div>
+</body>
+</html>
