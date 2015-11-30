@@ -21,9 +21,38 @@
 	.wrap li { width:50%; height: 2rem; line-height: 2rem; text-align: center; margin: 1rem 0; border: 1px solid #999; border-radius: 5px;}
 	.wrap li a { font-size: 0.6rem; display: inline-block; width: 100%; }
     </style> 
+    <script type="text/javascript">
+    window.onload = function(){
+    	var oWrap = document.getElementById("wrap"),
+    		oUl = oWrap.getElementsByTagName("ul")[0],
+    		aLi = oUl.getElementsByTagName("li");
+
+
+    	var userAgentInfo = navigator.userAgent;
+        var Agents = ["Android", "iPhone",
+            "SymbianOS", "Windows Phone",
+            "iPad", "iPod"];
+        for (var v = 0; v < Agents.length; v++) {
+            if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                //this.config.y_isPc.hide();
+            	for(var i=0;i<aLi.length;i++){
+					aLi[i].style.display = "block";
+            	}
+            	aLi[0].style.display = "none";
+                break;
+            }else{
+            	for(var i=0;i<aLi.length;i++){
+					aLi[i].style.display = "none";
+            	}
+            	aLi[0].style.display = "block";
+                //this.config.y_isPc.show();
+            }
+        }
+    };
+    </script>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap" id="wrap">
 	<ul>
 		<li><a href="/home">个人站</a></li>
 		<li><a href="/h5_byj">匆匆那些年</a></li>
